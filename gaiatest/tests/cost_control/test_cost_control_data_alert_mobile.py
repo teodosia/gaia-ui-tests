@@ -45,7 +45,7 @@ class TestCostControlDataAlertMobile(GaiaTestCase):
     _usage_done_button_locator = ('id', 'data-usage-done-button')
 
     # browser app locators
-    _page_end_locator = ("id", "colophon")
+    _page_content_locator = ("id", "content")
 
     # notification bar locators
     _cost_control_widget_locator = ('css selector', 'iframe[data-frame-origin="app://costcontrol.gaiamobile.org"]')
@@ -144,9 +144,9 @@ class TestCostControlDataAlertMobile(GaiaTestCase):
         # please remove this once there is a better way than launching browser app/obj to do so
         browser = Browser(self.marionette)
         browser.launch()
-        browser.go_to_url('http://www.mozilla.org/')
+        browser.go_to_url('http://developer.mozilla.org/')
         browser.switch_to_content()
-        self.wait_for_element_present(*self._page_end_locator, timeout=120)
+        self.wait_for_element_present(*self._page_content_locator, timeout=120)
         browser.switch_to_chrome()
 
         # get the notification bar
