@@ -14,8 +14,8 @@ class Login(Base):
     _waiting_locator = ('css selector', 'body.waiting')
     _email_input_locator = ('id', 'authentication_email')
     _password_input_locator = ('id', 'authentication_password')
-    _next_button_locator = ('css selector', 'button.start')
-    _returning_button_locator = ('css selector', 'button.returning')
+    _next_button_locator = ('css selector', 'button.isStart')
+    _returning_button_locator = ('css selector', 'button.isReturning')
     _sign_in_button_locator = ('id', 'signInButton')
     _this_session_only_button_locator = ('id', 'this_is_not_my_computer')
     _this_is_not_me_locator = ('id', 'thisIsNotMe')
@@ -34,7 +34,6 @@ class Login(Base):
         self.wait_for_element_not_present(*self._waiting_locator)
         # TODO: because of issue: https://github.com/mozilla/browserid/issues/3318 we can't wait for the right element
         time.sleep(5)
-
 
     def type_email(self, value):
         email_field = self.marionette.find_element(*self._email_input_locator)
