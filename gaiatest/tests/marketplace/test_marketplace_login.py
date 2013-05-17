@@ -25,7 +25,7 @@ class TestMarketplaceLogin(GaiaTestCase):
         self.install_marketplace()
 
         self.user = PersonaTestUser().create_user(verified=True,
-                                                  env={"browserid": "firefoxos.persona.org", "verifier": "firefoxos.123done.org"})
+                                                  env={"browserid": "firefoxos.persona.org", "verifier": "marketplace-dev.allizom.org"})
 
         self.marketplace = Marketplace(self.marionette, self.MARKETPLACE_DEV_NAME)
         self.marketplace.launch()
