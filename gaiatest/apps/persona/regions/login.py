@@ -14,7 +14,7 @@ class Login(Base):
     _waiting_locator = ('css selector', 'body.waiting')
     _email_input_locator = ('id', 'authentication_email')
     _password_input_locator = ('id', 'authentication_password')
-    _next_button_locator = ('css selector', 'button.isStart')
+    _continue_button_locator = ('css selector', '.continue.right')
     _returning_button_locator = ('css selector', 'button.isReturning')
     _sign_in_button_locator = ('id', 'signInButton')
     _this_session_only_button_locator = ('id', 'this_is_not_my_computer')
@@ -35,7 +35,6 @@ class Login(Base):
         # TODO: because of issue: https://github.com/mozilla/browserid/issues/3318 we can't wait for the right element
         time.sleep(5)
 
-
     def type_email(self, value):
         email_field = self.marionette.find_element(*self._email_input_locator)
         email_field.send_keys(value)
@@ -52,12 +51,13 @@ class Login(Base):
         password_field = self.marionette.find_element(*self._confirm_password_locator)
         password_field.send_keys(value)
 
-    def tap_next(self):
-        next_button = self.marionette.find_element(*self._next_button_locator)
+    def tap_continue(self):
+        next_button = self.marionette.find_element(*self._continue_button_locator)
         # TODO:  Remove workaround after bug 845849
         self.marionette.execute_script("arguments[0].scrollIntoView(false);", [next_button])
+        self.wait_for_element_displayed(*self._continue_button_locator)
         self.marionette.tap(next_button)
-        self.wait_for_element_not_displayed(*self._next_button_locator)
+        self.wait_for_element_not_displayed(*self._continue_button_locator)
 
     def tap_verify_user(self):
         self.marionette.tap(self.marionette.find_element(*self._verify_user_locator))
@@ -76,7 +76,7 @@ class Login(Base):
 
     @property
     def form_section_id(self):
-        self.wait_for_element_displayed(*self._form_section_locator)
+        self.wait_for_element_displayed(*self._form_section_locator, timeout=120)
         return self.marionette.find_element(*self._form_section_locator).get_attribute('id')
 
     def wait_for_sign_in_button(self):

@@ -25,7 +25,7 @@ class TestFtu(GaiaTestCase):
 
     # Step Wifi
     _section_wifi_locator = ('id', 'wifi')
-    _found_wifi_networks_locator = ('css selector', 'ul#networks-list li')
+    _found_wifi_networks_locator = ('css selector', '#networks li')
     _network_state_locator = ('xpath', 'p[2]')
     _password_input_locator = ('id', 'wifi_password')
     _join_network_locator = ('id', 'wifi-join-button')
