@@ -29,4 +29,5 @@ class FTUStep2(CostControl):
     def tap_next(self):
         self.wait_for_element_displayed(*self._next_button_locator)
         self.marionette.find_element(*self._next_button_locator).tap()
+        time.sleep(1)
         return FTUStep3(self.marionette)
