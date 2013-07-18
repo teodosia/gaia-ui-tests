@@ -30,7 +30,7 @@ class TestCalendar(GaiaTestCase):
                     var yr = today.getFullYear();
                     var mth = today.getMonth();
                     var day = today.getDate();
-                    return new Date(yr, mth, day, 0, 0, 0).getTime();""")
+                    return new Date(yr, mth, day, 0, 0, 1).valueOf();""")
 
             self.today = datetime.datetime.fromtimestamp(_seconds_since_epoch / 1000)
 
