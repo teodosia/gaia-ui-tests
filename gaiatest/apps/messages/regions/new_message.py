@@ -14,11 +14,18 @@ class NewMessage(Base):
     _attach_button_locator = (By.ID, 'messages-attach-button')
     _message_sending_locator = (By.CSS_SELECTOR, "li.message.outgoing.sending")
     _thread_messages_locator = (By.ID, 'thread-messages')
+    _sms_app_iframe_locator = (By.CSS_SELECTOR, 'iframe[src^="app://sms"][src$="index.html"]')
 
     def __init__(self, marionette):
         Base.__init__(self, marionette)
+        self.switch_to_new_message_frame()
         section = self.marionette.find_element(*self._thread_messages_locator)
         self.wait_for_condition(lambda m: section.location['x'] == 0)
+
+    def switch_to_new_message_frame(self):
+        self.marionette.switch_to_frame()
+        self.wait_for_element_displayed(*self._sms_app_iframe_locator)
+        self.marionette.switch_to_frame(self.marionette.find_element(*self._sms_app_iframe_locator))
 
     def type_phone_number(self, value):
         self.wait_for_element_displayed(*self._receiver_input_locator)
@@ -42,3 +49,14 @@ class NewMessage(Base):
         self.marionette.find_element(*self._attach_button_locator).tap()
         from gaiatest.apps.messages.regions.select_attachment import SelectAttachment
         return SelectAttachment(self.marionette)
+
+    def wait_for_recipients_displayed(self):
+        self.wait_for_element_displayed(*self._receiver_input_locator)
+
+    @property
+    def first_recipient_name(self):
+        return self.marionette.find_element(*self._receiver_input_locator).text
+
+    @property
+    def first_recipient_number(self):
+        return self.marionette.find_element(*self._receiver_input_locator).get_attribute('data-number')
