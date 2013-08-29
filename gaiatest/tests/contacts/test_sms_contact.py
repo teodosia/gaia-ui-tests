@@ -35,4 +35,4 @@ class TestContacts(GaiaTestCase):
         # Now check the first listed is from contacts app.
         # Name and phone number have been passed in correctly.
         self.assertEqual(new_message.first_recipient_name, expected_name)
-        self.assertEqual(new_message.first_recipient_number, expected_tel)
+        self.assertEqual(new_message.first_recipient_number_attribute, expected_tel)
