@@ -137,6 +137,7 @@ class ManualSetupEmail(Base):
         el.send_keys(value)
 
     def tap_next(self):
+        self.wait_for_element_displayed(*self._next_locator)
         self.marionette.find_element(*self._next_locator).tap()
 
     def wait_for_setup_complete(self):
