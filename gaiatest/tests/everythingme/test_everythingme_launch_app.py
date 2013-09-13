@@ -24,7 +24,9 @@ class TestEverythingMeLaunchApp(GaiaTestCase):
         search_panel.wait_for_tip_to_clear()
 
         search_panel.type_into_search_box(app_name)
+        search_panel.wait_for_tip_to_clear()
         search_panel.wait_for_everything_me_results_to_load()
+        homescreen.switch_to_homescreen_frame()
 
         self.assertGreater(search_panel.everything_me_apps_count, 0)
 
